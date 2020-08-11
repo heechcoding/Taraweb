@@ -4,7 +4,7 @@ import './App.css';
 
 function App() {
   return (
-    <p> 안녕하세요 ! </p>
+    <p> 안녕하 세요 ! </p>
   );
 }
 
