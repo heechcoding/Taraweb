@@ -8,9 +8,9 @@ import ny from "./NY.jpg"
 function App() {
   return (
     <div>
+
 <Image src = {ny} centered />
 <Comments />
-
 </div>
   );
 }
