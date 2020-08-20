@@ -7,7 +7,14 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
+@font-face {
+  font-family: 'Nanum Pen Script';
+  src: local('Nanum Pen Script'), url(./NanumPenScript-Regular.ttf) format('truetype');
+}
+
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+/* //https://stackoverflow.com/questions/41676054/how-to-add-fonts-to-create-react-app-based-projects */

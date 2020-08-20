@@ -30,8 +30,8 @@ function SingleComment(detail) {
         <Comment.Metadata>
           <div style={{ color: "LemonChiffon" }}>{detail.info.time}</div>
         </Comment.Metadata>
-        <Comment.Text style={{ color: "white", marginLeft: "40px" }}>
-          {detail.info.content}
+        <Comment.Text >
+          <p style={{ color: "white", marginLeft: "40px", fontFamily : "Nanum Pen Script" }}>{detail.info.content}</p>
         </Comment.Text>{" "}
         <Comment.Actions>
           <Comment.Action
@@ -61,7 +61,11 @@ function SingleComment(detail) {
                 detail.info.userName == detail.userName &&
                 detail.userName != "방문자"
               ) {
-                detail.selectComment(detail.index, detail.info.content, detail.info.id);
+                detail.selectComment(
+                  detail.index,
+                  detail.info.content,
+                  detail.info.id
+                );
               } else {
                 alert("본인의 댓글만 수정할수있어요..");
               }
@@ -82,14 +86,14 @@ class Comments extends React.Component {
       inputContent: "",
       inputTime: "",
       userName: "",
-      inputid : "",
+      inputid: "",
       commentsList: [],
       formLocation: -1,
     };
   }
 
   selectComment = (num, content, id) => {
-    this.setState({ formLocation: num, inputContent: content, inputid : id });
+    this.setState({ formLocation: num, inputContent: content, inputid: id });
   };
 
   componentDidMount = () => {
@@ -108,14 +112,14 @@ class Comments extends React.Component {
   };
 
   render() {
-    console.log(this.state)
+    console.log(this.state);
     return (
       <Comment.Group>
         <Header as="h3" dividing style={{ color: "white" }}>
           Comments
         </Header>
         {this.state.formLocation == -1 ? (
-          <Form reply>
+          <Form reply inverted>
             <Form.TextArea
               value={this.state.inputContent}
               placeholder="댓글을 입력해주면 좋겟어요!"
@@ -128,30 +132,23 @@ class Comments extends React.Component {
               primary
               onClick={() => {
                 if (this.state.inputContent != "") {
-                  this.setState(
-                    (prevState) => {
-                      let newComment = {
-                        content: this.state.inputContent,
-                        time: moment().format(
-                          "YYYY년 MM월 DD일 HH시 mm분 ss초"
-                        ),
-                        userName: this.props.userName,
-                      };
-
-                      return {
-                        commentsList: [...prevState.commentsList, newComment],
-                        inputContent: "",
-                      };
-                    },
-                    () =>
-                      db
-                        .collection("comments")
-                        .add(
-                          this.state.commentsList[
-                            this.state.commentsList.length - 1
-                          ]
-                        )
-                  );
+                  let newComment = {
+                    content: this.state.inputContent,
+                    time: moment().format("YYYY년 MM월 DD일 HH시 mm분 ss초"),
+                    userName: this.props.userName,
+                  };
+                    db
+                      .collection("comments")
+                      .add(newComment)
+                      .then((res) => {
+                        this.setState(prevState => {return {
+                          commentsList: [
+                            ...prevState.commentsList,
+                            Object.assign(newComment, {id: res.id}),
+                          ],
+                          inputContent: "",
+                        }});
+                      });
                 } else {
                   alert("내용을 입력해 주세요!");
                 }
@@ -187,7 +184,10 @@ class Comments extends React.Component {
                       if (this.state.inputContent != "") {
                         this.setState(
                           (prevState) => {
-                            let newArr = _.filter(prevState.commentsList, (comments) => this.state.inputid != comments.id)
+                            let newArr = _.filter(
+                              prevState.commentsList,
+                              (comments) => this.state.inputid != comments.id
+                            );
                             let newComment = {
                               content: this.state.inputContent,
                               time: moment().format(
@@ -197,23 +197,21 @@ class Comments extends React.Component {
                             };
 
                             return {
-                              commentsList: [
-                                ...newArr,
-                                newComment,
-                              ],
+                              commentsList: [...newArr, newComment],
                               inputContent: "",
-                              formLocation : -1
+                              formLocation: -1,
                             };
                           },
                           () =>
                             db
                               .collection("comments")
-                              .doc(
-                                this.state.inputid).update(this.state.commentsList[
+                              .doc(this.state.inputid)
+                              .update(
+                                this.state.commentsList[
                                   this.state.commentsList.length - 1
                                 ]
-                              ) )
-
+                              )
+                        );
                       } else {
                         alert("내용을 입력해 주세요!");
                       }

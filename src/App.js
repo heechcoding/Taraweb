@@ -17,6 +17,7 @@ import Buttons from "./buttons.js";
 import VisitorsModal from "./modal.js";
 import { db, auth } from "./fb.js";
 
+import ft from "./Alata-Regular.ttf"
 import ny from "./NY.jpg";
 
 var provider = new firebase.auth.GoogleAuthProvider();
@@ -51,7 +52,7 @@ class App extends React.Component {
           closeModal={this.toggleModal}
           visitorsList={this.state.visitors}
         />
-        <h2 style={{ color: "white", textAlign: "center", paddingTop: "15px" }}>
+        <h2 style={{ color: "white", textAlign: "center", paddingTop: "15px" , fontFamily : "Tangerine" }} class = "font-effect-fire-animation">
           {" "}
           TARA-WEB{" "}
         </h2>
@@ -107,51 +108,53 @@ class App extends React.Component {
           >
             Login
           </Menu.Item>
-        </Menu>  <Divider horizontal>
-            <Header as="h4" style={{ color: "white" }}>
-              <Icon name="microchip" style={{ color: "white" }} />
-              Contact Me
-            </Header>
-          </Divider>
-          <br />
-          <div>
-            <Grid centered>
-              <Button
-                circular
-                color="facebook"
-                icon="facebook"
-                onClick={() => alert("준비중입니다.")}
-              />
-              <Button
-                circular
-                color="instagram"
-                icon="instagram"
-                style = {{marginLeft : 20}}
-                onClick={() => window.open("https://www.instagram.com/heech912/")}
-              />
-              <Button
-                circular
-                color="youtube"
-                icon="youtube"
-                style = {{marginLeft : 20}}
-                onClick={() =>
-                  window.open(
-                    "https://www.youtube.com/channel/UC7ue1pZBUYiz_S3OKE7g_cQ/featured?view_as=subscriber"
-                  )
-                }
-              />
-              <Button
-                circular
-                color="google plus"
-                icon="google plus"
-                style = {{marginLeft : 20}}
-                onClick={() => alert("준비중입니다.")}
-              />
-            </Grid>
-          </div>
-          <br/>
+        </Menu>
+
         <Divider horizontal>
           <Header as="h4" style={{ color: "white" }}>
+            <Icon name="microchip" style={{ color: "white"}} />
+            Contact Me
+          </Header>
+        </Divider>
+        <br />
+        <div>
+          <Grid centered>
+            <Button
+              circular
+              color="facebook"
+              icon="facebook"
+              onClick={() => alert("준비중입니다.")}
+            />
+            <Button
+              circular
+              color="instagram"
+              icon="instagram"
+              style={{ marginLeft: 20 }}
+              onClick={() => window.open("https://www.instagram.com/heech912/")}
+            />
+            <Button
+              circular
+              color="youtube"
+              icon="youtube"
+              style={{ marginLeft: 20 }}
+              onClick={() =>
+                window.open(
+                  "https://www.youtube.com/channel/UC7ue1pZBUYiz_S3OKE7g_cQ/featured?view_as=subscriber"
+                )
+              }
+            />
+            <Button
+              circular
+              color="google plus"
+              icon="google plus"
+              style={{ marginLeft: 20 }}
+              onClick={() => alert("준비중입니다.")}
+            />
+          </Grid>
+        </div>
+        <br />
+        <Divider horizontal>
+          <Header as="h4" style={{ color: "white", fontFamily : ft }}>
             My Project
           </Header>
         </Divider>
@@ -182,17 +185,40 @@ class App extends React.Component {
         <Divider horizontal>
           <Header as="h4" style={{ color: "white" }}>
             <Icon name="home" style={{ color: "white" }} />
-
           </Header>
         </Divider>
-        <br/>
+        <br />
         <Grid centered>
-        <p style = {{color : "white"}}> copyright @ heech choi, all rights reserved </p>
-</Grid>
-<br/><br/>
+          <p style={{ color: "white" }}>
+            {" "}
+            copyright @ heech choi, all rights reserved{" "}
+          </p>
+        </Grid>
+        <br />
+        <br />
       </div>
     );
   }
 }
 
 export default App;
+
+// \<Grid centered columns={2}>
+//   <Grid.Row centered columns={2}>
+//     <Grid.Column>
+//       <Image src={ny} centered/>
+//     </Grid.Column>
+//     <Grid.Column>
+//       <Image src={ny}  centered/>
+//     </Grid.Column>
+//   </Grid.Row>
+//
+//   <Grid.Row centered columns={2}>
+//     <Grid.Column>
+//       <Image src={ny} centered />
+//     </Grid.Column>
+//     <Grid.Column>
+//       <Image src={ny} centered />
+//     </Grid.Column>
+//   </Grid.Row>
+// </Grid>
